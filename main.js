@@ -1,168 +1,21 @@
-var prompt = require('prompt-sync')();
+const ask = require("readline-sync");
+const colors = require("colors");
 
-// Variáveis de funcionamento geral do jogo
+// Variáveis Globais---------------------------------------------------------------------
+let gameOver = false;
+let inventario = [` Pocao Saude`.red];
+let armas = [`Cajado`.yellow];
+let fagulhaEsgotado = [`Fagulha`.blue];
+let esferaEsgotado = [`Esfera`.cyan];
 
-do{ // Responsável pelo loop geral do jogo
 
-class Jogo{
-	constructor(controle,controle2,leitor,leitor2){
-		this.controle=controle;
-		this.controle2=controle2;
-		this.leitor=leitor;
-		this.leitor2=leitor2;
-}
-
-criar_personagem(){
-	do{
-		console.log("Digite o nome do personagem:");
-		jogo.leitor2=prompt();
-		jogador.nick=jogo.leitor2;
-		console.log(`Tem certeza que deseja se chamar ${jogador.nick}?`);
-		console.log("Digite [1] para SIM, [2] NÃO");
-		jogo.leitor=+prompt();
-
-		if(jogo.leitor==1){
-			console.log(`Boa aventura ${jogador.nick}`);
-			jogo.leitor2="";
-			jogo.controle++;
-		}else{
-
-		}
-	prompt("Tecle ENTER para continuar:");
-	console.clear();
-
-	}while(jogo.controle==0);
-}
-
-historia(){
-	console.log(`            
-	                         Os 6 Caminhos   
-
-                         
-	História:
-
-	Antes da criação dos mundos, apenas um Deus existia na escuridão 
-	imensurável do vazio. Talvez nunca iremos saber a causa, mais sabemos 
-	que ele se dividiu em 4, gerando 4 mundos. A história que você fará parte, 
-	se passa no mundo das ilusões, chamado Drain ou quarto mundo, e como 
-	todos os outros, possui seus Deuses menores ou celestiais.
-	
-	Capítulo 1 (O 1º desafio!)
-	
-	 A sua aventura se passa em um planeta hostil, com seres rudimentares 
-	e de sutil consciência, atributos que levaram os Deuses menores a uma 
-	reunião. No fim da votação sobre a destruição de todos os seres do planeta, 
-	uma Deusa chamada Galad solicitou uma ultima chance com base em 4 criaturas 
-	que se destacavam em inteligência. A proposta era enviar 6 celestiais 
-	voluntários para guiá-las e através dos mesmos, preservar todas as outras 
-	criaturas. Após os 6 se apresentarem, tiveram os seus poderes reduzidos,
-	e se tornaram mortais. 
-	
-	Você foi um dos voluntários, e foi destinado aos Anões. 
-	Os anões são os mais favorecidos em atributos físicos entre os destinados 
-	aos 6 celestiais, porém são menos sábios e carismáticos`);
-
-	prompt("Tecle ENTER para continuar:");
-	console.clear();
-}
-
-narrativa1(){
-	console.log(
-	`
-	                           Floresta de Aldruin
-
-	A floresta abriga uma das maiores diversidades de vida animal e vegetal 
-	do planeta. Diante de toda a sua beleza e explendor, criaturas mortais ficam 
-	a espreita de uma presa distraída. Frondosas árvores cobrem boa parte 
-	da lúz do lugar, enquanto uma diversidade de cores nas flores escondem 
-	inúmeras virtudes em seu interior. Afluentes de água límpida e abundância 
-	de alimento, tornam o lugar um enorme laboratório da vida.
-	
-	Você faz a primeira visita a tribo Duir, conquistando a afeição de Guldur,o líder, 
-	após demonstrar uma ferramenta feita com a pedra mais dura vista até aquele momento. 
-	Na verdade, você estava introduzindo o ferro a cultura Duir.
-	
-	Você decide que já é hora de dar um passo maior, e percebendo as fraquezas da tribo, 
-	decide convencê-los da necessidade de criar uma alinça com as tribos vizinhas.
-
-	Você fala sobre os rumores de uma bebida feita com grãos fermentados, 
-	que promete levar as festividades a outro nível. Guldur aprova a expedição, 
-	e ordena que seus coletores consigam os ingredientes que você precisava para 
-	fazer fagulhas e esféras, tecnologia muito a frente daquele tempo, usadas por 
-	você como defesa contra diversas ameaças.
-
-	Logo pela manhã, você pega a trilha dos centauros, e segue sua jornada em direção
-	ao vale do esquecimento, território da tribo mais próxima a tribo  Duir.`)
-
-	prompt("Tecle ENTER para continuar:");
-	console.clear();
-}
-
-narrativa2(){
-	console.log(`
-	                            Vale do esquecimento
-
-	O local já fez parte da floresta de Aldruin, perdendo toda a sua exuberância 
-	e beleza após a queda de um fragmento espacial. Fendas se formaram em locais 
-	que antes eram grandes rios,que hoje, abrigam inúmeras criaturas que odeiam a lúz. 
-	A vida carece de recursos e a cada segundo luta afavor da existência
-	
-	                               O Som do medo
-	
-	Durante todo o percurso ${jogador.nick} mantém silêncio, evitando atrair a atenção
-	de terriveis criaturas que habitam o local.	A poucas horas de chegar ao fim da 
-	expedição, algo terrível acontece. Um estrondoso e medonho ruído sai de uma das 
-	fendas. É uma enorme criatura, com aparência humanoide. Desengonçada se aproxima
-	rapidamente com um enorme tacape em mãos, desferindo um ataque em sua direção.
-	
-	Rapidamente você desvia...`)
-
-	prompt("Tecle ENTER para continuar:");
-	console.clear();
-	
-}
-
-narrativa_final(){
-	console.log(`
-	Após enfrentar muitos perigos, você chega ao vale do esquecimento, território 
-	dos parentes mais próximos do povo Duir, os Nargos. A tribo se encontra ao redor 
-	de um pequeno lago,um dos únicos com água límpida, capaz de manter a vida no local.
-	A recepção já era de se imaginar...
-
-	Os guardas da tribo não demonstram agressividade, pois a aparência de um sábio não 
-	transparece ameaça a tribo. Mesmo assim os portões não se abrem de imediato, e  sem 
-	perder tempo, você retira um pequeno baú de um de seus bolsos, o abrindo rapidamente. 
-	O brilho do conteúdo da caixa faz com que o líder, Bauer, pedisse que os portões 
-	abrissem para o humilde e generoso convidado. 
-	
-	Apesar de desconfiados e pouco sociáveis,os anões se dobram facilmente com tudo que 
-	brilha e reluz.  Adentrando ao local, você é acompanhado até a tenda principal, onde 
-	Bauer o recebe.
-	Após algumas horas de conversa com o líder, você o convence a fazer uma expedição 
-	de volta, levando alguns barris da sua famosa bebida de grãos fermentados, criando 
-	assim, a primeira aliança entre tribos anões.
-	 
-	continua...fim!`)
-
-	prompt("Tecle ENTER para continuar:");
-	console.clear();
-
-}
-
-}
-
-// Passando referências para cada variável da classe Jogo
-const jogo = new Jogo(0,0,0,"");
-
-// Classe responsável pela transição dos dias
 class Ciclo {
-	constructor(dia,periodo) {
-		this.dia=dia;
-		this.periodo=periodo;
+	constructor(dia, periodo) {
+		this.dia = dia;
+		this.periodo = periodo;		
 	}
 
-	// Função responsável pela passagem os dias 
-	async passTempo() {
+	 async passciclo() {
 		if (this.periodo === "Manhã") {
 			this.periodo = "Tarde";
 		} else if (this.periodo === "Tarde") {
@@ -172,420 +25,831 @@ class Ciclo {
 			this.dia++;
 		}
 	}
-	
-
 }
-// Passando referências para cada variável da classe ciclo
-const ciclo  = new Ciclo(1,"Manhã");
 
-// classe responsável pelo controle de mapas
-
-class Map{
-	constructor(local,regiao,armazena_local,armazena_regiao){
-		this.local=local;
-		this.regiao=regiao;
-		this.armazena_local=armazena_local;
-		this.armazena_regiao=armazena_regiao;
-	}
-
-	pass_local(){ 
-        if(map.armazena_local ===map.local[0]) 
-        {
-			 map.armazena_local=map.local[1];
-        }else if(map.armazena_local===map.local[1]){
-			map.armazena_local=map.local[2];
-		}else{
-			map.armazena_regiao=map.armazena_regiao[1];
-		}
-    }
-	// função de batalha
-	batalha(inimigo){
-		do{
-			let resposta_jogador=+prompt("Digite [1] ATACAR ou [2] para FUGIR:");
-			if(resposta_jogador==1){
-				console.log("[1] perícia cajado");
-				console.log("[2] Fagulha");
-				console.log("[3] Esfera Explosiva");
-				resposta_jogador=0;
-				resposta_jogador=+prompt("Digite uma das opções:");
-				if(resposta_jogador==1){
-					inimigo.saude-=jogador.dano_ataque[0];
-					jogador.saude-=inimigo.ataque;
-					console.log(`Saúde jogador:${jogador.saude}`);
-					console.log(`Saúde inimigo:${inimigo.saude}`);
-					prompt("Digite ENTER para continuar:");
-					console.clear();				
-				}else if(resposta_jogador==2){// Ataque Fagulha
-					for(let x=0;x<3;x++){
-						if(jogador.ataque[x]=="fagulha"){							
-							jogador.ataque[x]="vazio";							
-							inimigo.saude-=jogador.dano_ataque[1];
-					        jogador.saude-=inimigo.ataque;	
-					        console.log(`Saúde jogador:${jogador.saude}`);
-					        console.log(`Saúde inimigo:${inimigo.saude}`);
-					        prompt("Digite ENTER para continuar:");
-					        console.clear();												
-						}else{
-							if(jogador.ataque[x]=="vazio"){
-								console.log("você não tem mais esse ataque!");
-							}						
-						}																								
-					}	
-					
-				}else if(resposta_jogador==3){
-					for(let x=0;x<3;x++){
-						if(jogador.ataque[x]=="esfera_explosiva"){
-							jogador.ataque[x]="vazio";
-							inimigo.saude-=jogador.dano_ataque[2];
-					        jogador.saude-=inimigo.ataque;
-					        console.log(`Saúde jogador:${jogador.saude}`);
-					        console.log(`Saúde inimigo:${inimigo.saude}`);
-					        prompt("Digite ENTER para continuar:");
-					        console.clear();									
-						}else{
-							if(jogador.ataque[x]=="vazio"){
-								console.log("você não tem mais esse ataque!");
-							}						
-						}						
-					}					
-					
-				}else{
-					console.log("Dígito inválido!");
-				}				
-
-			}else{
-				return ;
-			}
-			if(jogador.saude<=0){
-				console.log(`Você sobreviveu por ${ciclo.dia} dias.`);	
-				console.log("Você foi morto em combate!");
-				console.log("GAME OVER!!!");
-				jogo.controle++;
-			}
-			
-			if(inimigo.saude<=0){
-				console.log("Você venceu!!!");
-				jogo.controle++;
-			}
-			prompt("Tecle ENTER para continuar:");// alterado hoje
-	        console.clear();
-
-		}while(inimigo.saude>0 && jogador.saude>0);
-	}
-
-}
-// Passando referências para cada variável da classe ciclo
-const map  = new Map(["Trilha dos Centauros","Gruta da pedra cortante","Colina dos Carneiros"],["Floresta de Aldruin",],"Trilha dos Centauros","Floresta de Aldruin");
-
-
-// Classe correspondente ao jogador
-
+// Construtor do Jogador------------------------------------------------------------------
 class Jogador {
-	constructor(nick,saude,ouro,ataque,dano_ataque,iten) {
+	constructor(
+		nick,
+		saude,
+		extrato,
+		cristalAzul,
+		cristalVermelho,
+		fagulhaRodadas,
+		esferaRodadas,
+		ataque,
+	) {
 		this.nick = nick;
 		this.saude = saude;
-		this.ouro = ouro;
+		this.extrato = extrato;
+		this.cristalAzul = cristalAzul;
+		this.cristalVermelho = cristalVermelho;
+		this.fagulhaRodadas = fagulhaRodadas;
+		this.esferaRodadas = esferaRodadas;
 		this.ataque = ataque;
-		this.dano_ataque=dano_ataque;		
-		this.iten = iten;		
 	}
-	// Funções de controle de ação do personagem>>>
 
-	// Função que imprime o inventário geral do jogador
+	depositar(quantia) {
+		this.extrato += quantia;
+	}
 
-	status_geral(){
-		do{
-		console.log("--------------------Inventário---------------")
-		console.log(` Nome: ${jogador.nick} - Saúde: ${jogador.saude}`)
-		console.log("                                             ")
-		console.log(` Ataques:                                    `)
-		console.log(`[${jogador.ataque[0]}]-[${jogador.ataque[1]}]-[${jogador.ataque[2]}]`)
-		console.log("                                             ")
-		console.log(" itens:                                      ")
-		console.log(`{${jogador.iten[0]}] - [${jogador.iten[1]}] - [${jogador.iten[2]}]`)
-		console.log(`{${jogador.iten[3]}] - [${jogador.iten[4]}] - [${jogador.iten[5]}]`)
-		console.log(`                                   Ouro:[${jogador.ouro}]`)
-		console.log("_____________________________________________")
-		console.log("Para sair digite [1]");
-		jogo.leitor=prompt();
-		
-		if(jogo.leitor>=1){
-			jogo.controle++;
+	verExtrato() {
+		return this.extrato;
+	}
+}
+const jogador = new Jogador("", 120, 15, 0, 0, 0, 0, 0);
+const ciclo = new Ciclo(1, 'Manhã');
+
+
+if (jogador.extrato < 0) {
+	jogador.extrato = 0;
+}
+
+// Construtor Inimigo
+class Enemy {
+	constructor(nome, saude, ataque) {
+		this.nome = nome;
+		this.saude = saude;
+		this.ataque = ataque;
+	}
+}
+
+// Introdução do Jogo -------------------------------------------------------------------
+
+console.clear();
+
+console.log(
+	`
+                  		      OS 6 CAMINHOS`.magenta +
+	`
+  
+      Antes da criação dos mundos, apenas um Deus Existia e vagava pelo vazio. 
+  Talvez nunca iremos saber a causa, mais sabemos que ele se dividiu em 4, gerando 4 mundos. 
+  A história que você fará parte, se passa no mundo das ilusões, chamado Drain ou quarto mundo, 
+  e como todos os outros, possui seus Deuses menores ou celestiais.
+  
+  
+  ` +
+	`			    	      O 1º DESAFIO!`.magenta +
+	`
+  
+      A sua aventura se passa em um planeta hostil, com seres rudimentares e de sutil consciência, 
+  atributos que levaram os Deuses menores a uma reunião. No fim da votação sobre a destruição 
+  de todos os seres do planeta, uma Deusa chamada Galad solicitou uma última chance com base em 
+  4 criaturas que se destacavam em inteligência. A proposta era enviar 6 celestiais voluntários 
+  para guiá-las e através dos mesmos, preservar todas as outras criaturas. Após os 6 se apresentarem, 
+  tiveram os seus poderes reduzidos, e se tornaram mortais. 
+  
+  
+      Você foi um dos voluntários, e foi destinado aos Anões. 
+  Os anões são os mais favorecidos em atributos físicos entre os destinados aos 6 celestiais, 
+  porém são menos sábios e carismáticos.
+  `.brightWhite
+
+);
+
+menuId = ask.keyIn("Pressione a tecla de ESPACO para continuar: ", { limit: "$< >", });
+console.clear();
+
+let nickPlayer = ask.question(`*Coruja:`.yellow.italic +
+	``.yellow.italic + ` Por favor, digite o seu nome: `.brightWhite);
+jogador.nick = nickPlayer;
+console.log(`*Coruja:`.yellow.italic +
+	``.yellow.italic + ` Okay, ` + `${jogador.nick}`.cyan + ` Eu sou Owl a Coruja e serei o seus olhos durante o jogo. 
+         Agora que voce tem seu ` + `Cajado`.yellow + ` e uma ` + `Pequena pocao de saude`.red + ` 
+	 voce esta pronto para comecar sua jornada.`.brightWhite);
+
+console.log(`OBJETIVO: `.green + `Coletar 6 cristais Azul e 3 cristais Vermelho.`.yellow);
+
+// Pause Menu and Options -----------------------------------------------------------------------------------------------------------------------------------------
+
+function pausar() {
+	let extratoAtual = `${jogador.extrato}`.brightYellow;
+	let saudeAtual = `${jogador.saude}`.brightGreen + ` /`.brightWhite + ` 120 HP`.brightGreen;
+	let fagulhaRodadas = `${jogador.fagulhaRodadas}`;
+	let esferaRodadas = `${jogador.esferaRodadas}`;
+	let textoMateriais = `MATERIAIS COLETADOS`.underline;
+
+	function beberFermentacao() {
+
+		if (inventario.includes(` Fermentacao`.brightCyan)) {
+			inventario.splice(inventario.indexOf(` Fermentacao`), 1);
+			console.log(`*Coruja: `.brightYellow.italic + `Como voce pode beber uma fermentacao que nem sequer sabe o que e?!?!.`.brightWhite);
+			console.log(`NAO BEBA!!! 20 HP foi deduzido de sua saude.`.brightRed);
+			jogador.saude -= 20;
+			ciclo.passciclo();
+			console.log(`Voce esta no periodo da ${ciclo.periodo}`);
+			console.log(`Voce esta no dia ${ciclo.dia}`);
+		} else {
+			console.log(`VOCE NAO TEM ESTE ITEM EM SEU INVENTARIO!!!`.brightWhite);
+			pausar();
 		}
-		prompt("Tecle ENTER para continuar:");// alterado hoje
-	    console.clear();	
-	
-		}while(jogo.controle==0)	
 	}
 
-	// Função para utilizar, adicionar e excluir itens
 
-	bolsa(){ 
-		do{
-			console.log("--------------------bolsa------------------");			
-			console.log("itens:                                  ");			
-			console.log(`[0]${jogador.iten[0]} - [1]${jogador.iten[1]} - [2]${jogador.iten[2]}`);
-		    console.log(`[3]${jogador.iten[3]} - [4]${jogador.iten[4]} - [5]${jogador.iten[5]}`);
-		    console.log("___________________________________________");			
-			console.log("[1] para utilizar algum iten:");
-			console.log("[2] para excluir algum iten]");
-			console.log("[3] para fechar a bolsa]");
-			console.log("___________________________________________");	
-			jogo.leitor=+prompt();
-
-			if(jogo.leitor==1){
-				console.log("Digite o número do iten que deseja utilizar:");
-				jogo.leitor=0;
-				jogo.leitor=+prompt();
-				if(jogador.iten[jogo.leitor]=="poção_cura"){
-					jogador.saude=120;
-					jogador.iten[jogo.leitor]="vazio"; 
-
-				}else{
-					console.log("Local vazio, escolha outra opção!")
-					jogo.leitor=0;
-				}
-					
-			
-
-				}else if(jogo.leitor==2){
-					console.log("Digite o número do iten que deseja excluir:");
-					jogo.leitor=0;
-				    jogo.leitor=+prompt();
-
-					if(jogador.iten[jogo.leitor]=="vazio"){
-						console.log("Não existe iten no local!");
-	
-					}else{
-						jogador.iten[jogo.leitor]="vazio";
-						jogo.leito=0;		
-					}
-				}else{
-					jogo.controle++;
-				}				
-			}while(jogo.controle==0)
-
+	function fumarErva() {
+		if (inventario.includes(` Erva`.green)) {
+			inventario.splice(inventario.indexOf(` Erva`), 1);
+			console.log(`*Coruja: `.brightYellow.italic + `O aroma e agradavel mas voce esta rindo para as paredes.`);
+			console.log(`10  HP foram deduzidos de sua saude!`.brightRed);
+			jogador.saude -= 10;
+			ciclo.passciclo();
+			console.log(`Voce esta no periodo da ${ciclo.periodo}`);
+			console.log(`Voce esta no dia ${ciclo.dia}`);
+		} else {
+			console.log(`VOCE NAO TEM ESTE ITEM EM SEU INVENTARIO!!!`.brightWhite);
+			pausar();
+		}
 	}
 
-	// Função responsável pela compra de itens. Poderá ser acessada a qualquer momento.
+	monstrarInventario();
+	function monstrarInventario() {
+		ciclo.passciclo().then(()=> 'Time passed');
 
-	loja_bolso(){
-		jogo.leitor=0;
-		jogo.controle=0;
-		do{
-			console.log("---------------loja de bolso-----------");			
-			console.log("itens:                                  ");			
-			console.log(`[0]${iten.nome[0]} - ouro:${iten.valor[0]} `);
-		    console.log(`[1]${iten.nome[1]} - ouro:${iten.valor[1]} `);
-			console.log(`[2]${iten.nome[2]} - ouro:${iten.valor[2]}\n`);
-			console.log(`${jogador.nick} ouro: ${jogador.ouro}`);
-		    console.log("___________________________________________");			
-			console.log("Digite [1] para comprar:");			
-			console.log("Digite [2] para guardar o mercado de bolso]");
-			console.log("___________________________________________");	
-			jogo.leitor=+prompt();
+		console.log(
+			`-----------------------------JOGO PAUSADO-----------------------------`.brightRed);
 
-			if(jogo.leitor==1){
-				console.log("Digite o número do item que deseja comprar:");
-				jogo.leitor=0;
-				jogo.leitor=+prompt();
-				if(jogo.leitor>=0 || jogo.leitor<=2){
-					if(jogador.ouro>=iten.valor[jogo.leitor]){
-						for(let x=0;x<6;x++){
-							if(jogador.iten[x]==="vazio"){
-								console.log(`Ouro: ${jogador.ouro}`);
-								jogador.iten[x]=iten.nome[jogo.leitor];
-								jogador.ouro-=iten.valor[jogo.leitor];
-								break;						
-						
-							}else{
-								do{
-									jogo.leitor=0;
-									console.log("Bolsa cheia! Deseja excluir algum iten?\n");						
-									
-										console.log("--------------------bolsa------------------");			
-			                            console.log("itens:                                  ");			
-			                            console.log(`[0]${jogador.iten[0]} - [1]${jogador.iten[1]} - [2]${jogador.iten[2]}`);
-		                                console.log(`[3]${jogador.iten[3]} - [4]${jogador.iten[4]} - [5]${jogador.iten[5]}`);
-		                                console.log("___________________________________________");													
-										console.log("Digite o número correspondente ao iten[?]:");
-										console.log("Digite [7] para sair:");
-									    jogo.leitor=prompt();
+		let pausaJogo =
+			`----------------------------------------------------------------------` + `  
+  
+        ` + `SAUDE`.underline + `            ${saudeAtual}                                       
+        ` + `OURO`.underline + `             ${extratoAtual}                                                                                   
+        ` + `ARMAS`.underline + `   	 [`.blue + `${armas}` + `]`.blue + `                                                 
+        ` + `PODERES`.underline + `          Fagulha [${fagulhaRodadas}] `.blue + `||` + ` Esfera [${esferaRodadas}]`.cyan + `
+        ` + `INVENTARIO`.underline + `       [`.brightGreen + `${inventario}`.magenta + `                          ]`.brightGreen + `
 
-										if(jogo.leitor==0 || jogo.leitor<=5){	
-											jogador.iten[jogo.leitor]="vazio";
-											console.log(`${jogador.iten[jogo.leitor]} foi removido da bolsa!`)
-										}else{
-											jogo.controle++;
-										}
-										
-									}while(jogo.controle==0);
-																			
-							}
-						}
-					
-						
-					}else{
-						console.log("Ouro insuficiênte!");
-					}
+        ` + `OBJETIVO`.underline + `
+        Coletar 6 cristais Azul e 3 cristais vermelho para...`.yellow + `
 
-				}else{
-					console(`Erro: ${jogo.leitor}`)		
-					jogo.controle++;
-				}		
-			
+        ${textoMateriais}
+        ` + `${jogador.cristalAzul}`.blue + ` /` + `6 cristais Azul.` + `
+        ` + `${jogador.cristalVermelho}`.red + ` /` + `3 cristais Vermelho.` + `
+  
+  ----------------------------------------------------------------------` +
+			`
+                                                                    `;
 
-			}else{
-				jogo.controle++;
+		console.log(pausaJogo);
+		perguntarUsarItem();
+
+		function perguntarUsarItem() {
+			let arr = [`Usar ` + `Pocao Saude`.brightRed + ` (restaura saude a ` + `cheio`.brightGreen + `!)`,
+			`` +
+			`Usar Pocao Inferior`.brightRed + ` (restaura + ` + `30`.brightGreen + ` de saude! ` + `Apenas`.red + ` se tiver no inventario!)`,
+			`Beber a ` + `Fermentacao`.cyan + ` (` + `Apenas`.red + ` se tiver no inventario!)`,
+			`Fumar a ` + `Erva`.green + ` (` + `Apenas`.red + ` se tiver no inventario!)`,
+			`Sair do inventario e ` + `Reiniciar o `.brightGreen + ` Jogo`,];
+			const useItem = ask.keyInSelect(arr, `Tem algum item em seu inventario que queira usar agora?`.brightWhite);
+
+			if (useItem === 0) {
+				usarPocaoSaude();
+				monstrarInventario();
+			} else if (useItem === 1) {
+				usarPocaoInferior();
+				monstrarInventario();
+			} else if (useItem === 2) {
+				beberFermentacao();
+				monstrarInventario();
+			} else if (useItem === 3) {
+				fumarErva();
+				monstrarInventario();
+			} else if (useItem === 4 || useItem === -1) {
+				console.log(`-----------------------------JOGO REINICIADO-----------------------------`.brightGreen);
 			}
-			prompt("Tecle ENTER para continuar:");
-	        console.clear();	
-		
-		}while(jogo.controle==0);
-		
-	}
-	// Função responsável pela locomoção do personagem
-	avancar(){ // 
-	
-		if(ciclo.periodo==="Manhã" && map.armazena_local==="Trilha dos Centauros"){
-			jogo.narrativa1();
-			ciclo.passTempo();
-			map.pass_local();			
-		}else if(ciclo.periodo==="noite" && map.armazena_local==="Trilha dos Centauros"){
-			console.log("Uma cobra gigante se aproxima!");
-			ciclo.passTempo();
-			map.pass_local();
-			map.batalha(cobra_gigante);						
-		}else if(ciclo.periodo==="Tarde" && map.armazena_local==="Gruta da pedra cortante"
-		){
-			console.log("Um inimigo se aproxima!");
-			ciclo.passTempo();
-			map.pass_local();
-			map.batalha(lagarto_humanoide);
-		}else if(ciclo.periodo==="Tarde" && map.armazena_local==="Colina dos Carneiros"){
-				console.log("Um inimigo se aproxima!");
-				ciclo.passTempo();
-				map.pass_local();
-				map.batalha(grupo_de_ladrões);
-		}else if(map.armazena_regiao==="Vale do Esquecimento"){
-					jogo.narrativa2
-					ciclo.passTempo();
-					map.pass_local();
-					map.batalha(troll_da_floresta);
-					controle++;
-		}else{
-			console.log("Nenhum perigo por enquanto.Você avança!")
-			ciclo.passTempo();
-			map.pass_local();
 		}
-	}		
-	
-	// Função que apresenta um menu de opções sobre as ações do jogador
-	menu_acoes(){
-		jogador.status();		
-		jogo.controle=0;
-	do{	
-	console.log("Você gostaria de tomar que atitude?");
-	console.log("[1] Para seguir viagem");
-	console.log("[2] para abrir Loja de bolso");
-	console.log("[3] para ver estatus geral")
-	console.log("[4] para abrir a bolsa");
-	console.log("[5] para sair do jogo");
-	jogo.leitor = +prompt("Digite a opção desejada:");
-	//console.log(jogador.leitor);
-	
-	if (jogo.leitor===1){
-	jogador.avancar();
-	}else if(jogo.leitor===2){
-	jogador.loja_bolso();
-	}else if(jogo.leitor===3){
-		jogador.status_geral();
-	}else if(jogo.leitor==4){
-		jogador.bolsa();
-	}else{
-	console.log("você saiu do jogo!!!")
-	jogo.controle++;
-	}
-	prompt("Tecle ENTER para continuar:");
-	console.clear();
-	}while(jogo.controle==0)	 // alterado hoje
-	
-} 
-
-// Função que imprime todos os status necessários em tela
-
-status(){ 
-	console.log(`nome:${jogador.nick}`);
-	console.log(`saúde:${jogador.saude}`);
-	console.log(`dia:${ciclo.dia}`);
-	console.log(`período:${ciclo.periodo}`);
-	console.log(`local:${map.armazena_local}`);
-	console.log(`Região:${map.armazena_regiao}`);
-}
-
-} 
-// Passando referências para cada variável da classe Jogador
-const jogador = new Jogador("",80,60,["pericia_cajado","fagulha","esfera_explosiva"],[10,25,35],["poção_cura","vazio","vazio","vazio","vazio","vazio"]);
-
-// Classe que irá receber os valores dos itens
-
-class Iten{
-	constructor(nome,valor){
-
-		this.nome=nome;
-		this.valor=valor;
 	}
 }
-// Passando referências para cada variável da classe Iten
-const iten = new Iten(["poção_cura","esfera_explosiva","fagulha"],[50,20,15]);
 
+// Danos das Armas do Jogador ----------------------------------------------------------------------------------------------------------------------------------
 
-// class responsável pela criação dos inimigos
-
-class Inimigo{ 
-	constructor(nome,saude,ataque,ouro){
-		this.nome=nome;
-		this.saude=saude;
-		this.ataque=ataque;
-		this.ouro=ouro;
-	} 
-
+function danoCajado() {
+	let min = 15;
+	let max = 25;
+	return Math.floor(Math.random() * (max - min + 1) + min);
 }
-// Passando referências para cada variável da classe Inimigo
-const cobra_gigante = new Inimigo("cobra_gigante",20,15,0);
-const lagarto_humanoide = new Inimigo("Lagarto_humanoide",30,15,10);
-const grupo_de_ladrões = new Inimigo("grupo_de_ladrões",45,20,40);
-const troll_da_floresta = new Inimigo("troll_da_floresta",100,22,5);
 
+function danoFagulha() {
+	let min = 35;
+	let max = 45;
+	jogador.fagulhaRodadas -= 1;
+	return Math.floor(Math.random() * (min - max + 1) + min);
+}
 
-//***************************** Início do jogo******************************
+function danoEsfera() {
+	let min = 60;
+	let max = 80;
+	jogador.esferaRodadas -= 1;
+	return Math.floor(Math.random() * (min - max + 1) + min);
+}
 
+//Funções do Jogo------------------------------------------------------------------
+function vasculharArea() {
+	const randomNum = Math.floor(Math.random() * 3);
+	if (randomNum === 0) {
+		batalha(criarInimigo());
+	} else if (randomNum === 1) {
+		console.log(`VOCE VASCULHOU 3 AREAS E NAO ENCONTROU NENHUM INIMIGO.`.brightWhite);
+	} else if (randomNum === 2) {
+		console.log(`CUIDADO!!! `.brightRed.bold +
+			`FALSO ALARME!!!`.brightWhite);
+	} else if (randomNum === 3) {
+		console.log(`Nada por aqui. Continue vasculhando`.brightWhite);
+	}
+}
 
-	do{
-		jogo.criar_personagem();
-		jogo.controle++;
-	}while(jogo.controle==0)
-	jogador.controle=0;
-	do{
-		jogador.menu_acoes();
-	}while(controle==0)
+function usarPocaoInferior() {
+	if (jogador.saude <= 95) {
+		const checkinventario = inventario.indexOf(` Pocao Inferior`);
+		if (inventario.includes(` Pocao Inferior`)) {
+			inventario.splice(checkinventario, 1);
+		}
+		console.log(`30 HP foi restaurado!`.brightGreen.bold);
+		jogador.saude += 30;
+	}
+	if (jogador.saude > 91) {
+		console.log(`Sua saude nao esta baixa o suficiente para usar Pocao Inferior!`.brightRed.bold);
+	}
+}
 
-	jogo.narrativa_final();
-	jogo.leitor=0;
-	jogo.controle=0;
-	
-	do{
-	console.log("Você deseja jogar novamente?");
-	jogo.leitor=prompt("Digite [1] SIM ou [2] NÃO :");
+function usarPocaoSaude() {
+	const inventarioIndex = inventario.indexOf(` Pocao Saude`);
+	if (inventario.includes(` Pocao Saude`)) {
+		inventario.splice(inventarioIndex, 1);
+		jogador.saude = 120;
+		console.log(`Sua saude foi restaurada a 120 HP/ 120 HP!`.brightGreen);
+	}
+}
 
-	if(jogo.leitor>1){
-		jogo.controle++;
-		jogo.controle2++;
+// Gerar Status e Inimigo ------------------------------------------------------------------
+class Inimigo {
+	constructor(nome, saude, ataque) {
+		this.nome = nome;
+		this.saude = saude;
+		this.ataque = ataque;
+	}
+}
+
+function valorAtaque() {
+	let min = 15;
+	let max = 25;
+	return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function valorAtaqueChefao() {
+	let min = 35;
+	let max = 45;
+	return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function criarInimigo() {
+	const numAleatorio = Math.floor(Math.random() * 4);
+
+	// Criar Aranha  -----------------------------------------------------------------------
+	if (numAleatorio === 0 || numAleatorio === 1) {
+		console.log(`*Coruja:`.brightYellow.italic +
+			` CUIDADO! `.red + `Uma ` + `Aranha Gigante`.red + ` acaba de aparecer!!!`);
+		return new Inimigo("Aranha Gigante", 75, valorAtaque());
+
+		// Criar Chefão --------------------------------------------------------------------
+	} else if (numAleatorio === 2) {
+		console.log(`*Coruja:`.brightYellow.italic +
+			` Fique atento, o ` + `Chefao e seus Capangas`.red + ` acaba de avistá-lo.`);
+		return new Inimigo("Chefao", 200, valorAtaqueChefao());
+
+		// Criar cobra ---------------------------------------------------------------------
+	} else if (numAleatorio === 3 || numAleatorio === 4) {
+		console.log(`*Coruja:`.brightYellow.italic +
+			` Você acabou de pisar no ` + `ninho da cobra de 2 cabecas`.red + `. E ambas as cabeças estão te encarando!`);
+		return new Inimigo("Cobra de 2 cabecas", 40, valorAtaque());
+	}
+}
+
+// Funções que cuida da dropagem dos itens--------------------------------------------------
+function dropagem() {
+	const randomNum = Math.floor(Math.random() * 3);
+	if (randomNum === 0) {
+		return ` Pocao Saude`.brightGreen;
+	} else if (randomNum === 1) {
+		return ` Fermentacao`.yellow;
+	} else {
+		return ` Erva`.red;
+	}
+}
+
+function ouroDropagem() {
+	let min = 10;
+	let max = 15;
+	return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+// Criar combate ---------------------------------------------------------------------------
+function batalha(inimigo) {
+	while (inimigo.saude > 0 && jogador.saude > 0) {
+		console.log(
+			`*Coruja: `.yellow.italic + `${jogador.nick}`.cyan + ` tem ` + `${jogador.saude}`.yellow + ` HP/ 120 HP.` + `O ${inimigo.nome}`.brightRed +
+			` tem ` + `${inimigo.saude}`.brightRed + ` HP!`);
+		const respostaUsuario = ask.keyInSelect(
+			[`Atacar o(a) ` + `${inimigo.nome}`.brightRed, `Fugir`],
+			`*Coruja:`.yellow.italic + ` Faca uma escolha `.brightWhite + `${jogador.nick}!!!`.cyan);
+
+		let danoJogador = jogador.ataque;
+		let danoInimigo = inimigo.ataque;
+
+		if (respostaUsuario === 0) {
+			escolherArmas();
+		} else if (respostaUsuario === 1) {
+			return;
+		}
+
+		// Escolha das Armas ---------------------------------------------------------------
+		function escolherArmas() {
+			if (respostaUsuario === 0) {
+				let armaEscolhida = ask.keyInSelect(armas, `! ESCOLHA UMA ARMA PARA ATACAR !`.yellow);
+
+				if (armaEscolhida === -1) {
+					console.log(`OPCAO INVALIDA!`.brightRed);
+				}
+
+				if (armaEscolhida === 0) {
+					danoJogador = danoCajado();
+					inimigo.saude -= danoJogador;
+					jogador.saude -= danoInimigo;
+				}
+
+				if (armas.includes(` Fagulha`) && armaEscolhida === 1 && jogador.fagulhaRodadas >= 1) {
+					danoJogador = danoFagulha();
+					inimigo.saude -= danoJogador;
+					jogador.saude -= danoInimigo;
+				} else if ((armaEscolhida === 1 && !armas.includes(` Fagulha`)) || (jogador.fagulhaRodadas < 1 && armaEscolhida === 1)) {
+					console.log(`OU VOCE NAO COMPROU OU NAO TEM RODADAS DE FAGULHA O SUFICIENTE!`.brightRed);
+					console.log(`ESCOLHA UMA ARMA!`.brightWhite);
+					escolherArmas();
+				}
+
+				if (armas.includes(` Esfera`) && armaEscolhida === 2 && jogador.esferaRodadas >= 1) {
+					danoJogador = danoEsfera();
+					inimigo.saude -= danoJogador;
+					jogador.saude -= danoInimigo;
+				} else if ((armaEscolhida === 2 && !armas.includes(` Esfera`)) || (jogador.esferaRodadas < 1 && armaEscolhida === 2)) {
+					console.log(`OU VOCE NAO COMPROU OU NAO TEM RODADAS DE FAGULHA O SUFICIENTE!`.brightRed);
+					console.log(`ESCOLHA UMA ARMA!`.brightWhite);
+					escolherArmas();
+				}
+				console.log(`${armas[armaEscolhida]} foi equipado(a).`);
+
+				// Dialogo do Inimigo ------------------------------------------------------
+				function dialogoInimigo() {
+					const chefeNum = Math.floor(Math.random() * 2);
+					let chefeFala1 =
+						`O ${inimigo.nome}`.brightRed + ` lanca seu machado e acerta ${jogador.nick}`.cyan +
+						` e tira ` + `${danoInimigo}`.brightRed + ` de dano!`;
+
+					let chefeFala2 =
+						`O ${inimigo.nome}`.brightRed + ` esquiva e branda seu machado ate acertar ${jogador.nick}`.cyan +
+						` causando ` + `${danoInimigo}`.brightRed + ` de dano!`;
+
+					if (chefeNum === 0) {
+						return console.log(chefeFala1);
+					} else if (chefeNum === 1) {
+						return console.log(chefeFala2);
+					} else {
+						return console.log(`${inimigo.nome}`.brightRed + ` fica FURIOSO e acerta ${jogador.nick}`.cyan +
+							` causando ${danoInimigo}`.brightRed + `de dano !!!`);
+					}
+				}
+
+				if (inimigo.nome === "Aranha Gigante") {
+					console.log(`A ${inimigo.nome}`.brightRed + ` golpeia ` + `${jogador.nick} `.cyan +
+						`e causa um dano de ` + `${danoInimigo}`.brightRed + ` !!!`);
+				} else if (inimigo.nome === "Chefao") {
+					dialogoInimigo();
+				} else if (inimigo.nome === "Cobra de 2 cabecas") {
+					console.log(`A ${inimigo.nome}`.brightRed + ` ativa seu sistema de defesa e lanca duplo jorro de veneno em ` + `${jogador.nick}`.cyan +
+						` retirando ` + `${danoInimigo}`.brightRed + ` de vida!!!`);
+				}
+
+				// Diálogo do Jogador ------------------------------------------------------
+				dialogos();
+				function dialogos() {
+					if (armaEscolhida === -1) {
+						console.log(`*Coruja:`.yellow.italic +
+							` VOCE NAO ESCOLHEU UMA ARMA! DA PROXIMA VEZ ESCOLHA UMA ARMA PARA SE DEFENDER!`.brightBlue.bold);
+					} else if (armaEscolhida === 0) {
+						console.log(`${jogador.nick}`.cyan + ` segura firme seu cajado e golpeia ` + `${inimigo.nome}`.brightRed +
+							` causando um dano de  ` + `${danoJogador}`.brightCyan + ` !!!`);
+					} else if (armas.includes(` Fagulha`) && armaEscolhida === 1 && jogador.fagulhaRodadas > 1) {
+						console.log(`${jogador.nick}`.cyan + ` aciona a Fagulha e incendeia ` + `${inimigo.nome}`.brightRed +
+							` tirando ` + `${danoJogador}`.brightCyan + ` de vida!!!`);
+						console.log(`*Coruja:`.yellow.italic + `Que truque zuado, ` + `${jogador.nick}`.cyan + `!`);
+					} else if (armaEscolhida === 2) {
+						console.log(`${jogador.nick}`.cyan + ` Retira as esferas, pronuncia umas palavras e dispara 6 esferas acertando ` + `${inimigo.nome}`.brightRed +
+							` causando um dano de ` + `${danoJogador}`.brightCyan + `!!!`);
+						console.log(`*Coruja:`.yellow.italic + `Que truque maneiro, ` + `${jogador.nick}`.cyan + `!`);
+					}
+				}
+			}
+		}
+
+		// Chamdo de última chance----------------------------------------------------------
+		if (jogador.saude < 50 && inventario.includes(`Pocao Saude`)) {
+			console.log(
+				`-----------------------------JOGO PAUSADO-----------------------------`.brightRed.bold);
+			const usarPocao = ask.keyInSelect(
+				["Usar Pocao Saude", "Sair"],
+				`*Coruja:`.yellow.italic +
+				` Voce que usar uma Pocao Saude para restaura o seu HP a 120? Seu HP atual é ${jogador.saude}`
+					.brightGreen + ` HP/ 120 HP.`.brightGreen);
+			if (usarPocao === 0) {
+				usarPocaoSaude();
+			} else {
+				console.log(`*Coruja:`.yellow.italic + ` Aff!`);
+			}
+			console.log(
+				`-----------------------------JOGO REINICIADO-----------------------------`.brightGreen);
+		}
+
+		if (jogador.saude < 30 && inventario.includes(` Pocao Saude`)) {
+			console.log(`-----------------------------JOGO PAUSADO-----------------------------`.brightRed);
+			console.log(`*Coruja:`.yellow.italic + ` Sua saude esta muito BAIXA!!! Use uma Pocao Saude para restaura seu HP a cheio!!!`.brightRed.bold);
+			const alerta = ask.keyInSelect(["Use uma Pocao Saude!"], "Use a Pocao Saude ou voce MORRERA!!!");
+
+			if (alerta === 0) {
+				usarPocaoSaude();
+			} else {
+				console.log(`*Coruja:`.yellow.italic + ` Esta bem, ` + `${jogador.nick}`.cyan + `, como queira!`);
+			}
+			console.log(`-----------------------------JOGO REINICIADO-----------------------------`.brightGreen);
+		}
+
+		// Estágio da dropagem dos itens ---------------------------------------------------
+		if (inimigo.saude <= 0) {
+			const itemDrops = dropagem();
+			const ouroDrops = ouroDropagem();
+			console.log(`${inimigo.nome}`.brightRed + ` foi derrotado!`);
+			const posResposta = ask.keyInSelect(["Coletar o item", "Ignorar o item"],
+				`*Coruja:`.yellow.italic + ` ${itemDrops} caiu do combate. Voce quer adicionar ao seu inventario?`);
+			console.log(`${itemDrops} e ${ouroDrops}`.brightYellow + ` de Ouro adicionados ao seu inventario!`);
+			inventario.push(itemDrops);
+			jogador.depositar(ouroDrops);
+
+			if (inimigo.nome === `Chefao` && jogador.cristalAzul < 6) {
+				console.log(`O ` + `Chefao `.brightRed +
+					` foi derrotado. Tudo que sobrou foram seus capangas. Voce quer salva-los ou mata-los? Mata-los dara 2 cristais Azul. So dara 1 cristal Vermelho. Mas Drein, o olheiro do chefao, oferece recompensa extra que nao e cristal Azul por salva-los.`);
+
+				const matarOuSalvar = ask.keyInSelect([`Mata-los`, `Salva-los`]);
+
+				if (matarOuSalvar === 0) {
+					console.log(`*Coruja:`.yellow.italic + ` O caminho da GANANCIA e SANGUE. Mandou ver, ` + `${jogador.nick}`.cyan + `!`);
+					jogador.cristalAzul += 2;
+				} else if (matarOuSalvar === 1) {
+					console.log(`*Drein: `.brightGreen.italic + `O caminho CORRETO nem sempre e o mais FACIL de escolher. Voce mostrou bondade. E por isso, sou grato. Te darei algo para demostrar minha gratidao.`);
+					jogador.cristalAzul += 1;
+					console.log(`*` + `20`.brightYellow + ` Ouro e uma Pocao Saude foi adicionado ao seu inventario.*`);
+					jogador.verExtrato += 20;
+					inventario.push(` Pocao Saude`);
+				}
+
+				function cristalAzulRestante() {
+					let sum = 6 - jogador.cristalAzul;
+					return sum;
+				}
+
+				console.log(`*Coruja:`.yellow.italic + ` PROGRESSO DO OBJETIVO!` +
+					`Voce tem ` + `${jogador.cristalAzul}`.brightBlue + `/6 cristais Azul.` +
+					`Encontre ${cristalAzulRestante()} cristais Azul mais.`.brightGreen);
+				opcoesJogo();
+			}
+
+			if (inimigo.nome === `Aranha Gigante` && jogador.cristalVermelho < 4) {
+				jogador.cristalVermelho += 1;
+				console.log(`*Coruja:`.yellow.italic +
+					` PROGRESSO DO OBJETIVO!!!`.brightGreen +
+
+					`Voce tem ` + `${jogador.cristalVermelho}`.red + `/3 cristais Vermelho.` +
+
+					`Encontre todas as amostras de cristais vermelho requerida!`.yellow);
+			}
+
+			if (posResposta === 1) {
+			}
+			if (itemDrops === 0 || 1 || 2 || 3) {
+				//inventario.push(itemDrops);
+			}
+
+			if (posResposta === 2) {
+				console.log(`*Coruja:`.yellow.italic + ` De acordo. Vamos nessa entao.`);
+				opcoesJogo();
+			}
+			opcoesJogo();
+		}
+
+		if (respostaUsuario === 1) {
+			console.log(`*Coruja:`.yellow.italic + ` Estamos ficando sem ciclo, ` + `${jogador.nick}`.cyan + `!`);
+
+			console.log(`*Coruja:`.yellow.italic + ` Voce conseguiu escapar de ${inimigo.nome}.`);
+			opcoesJogo();
+		}
+
+		if (respostaUsuario === 2) {
+			pausar();
+		}
+	}
+}
+
+// Loop Principal do Jogo ------------------------------------------------------------------
+function opcoesJogo() {
+	const escolhasJogo = ["Vasculhar area", `Abrir Status e Inventario do(a) ` + `${jogador.nick}`.cyan, `Visitar a ` + `CABANA DO ESPER`];
+	const respostaUsuario = ask.keyInSelect(escolhasJogo, `OK, ` + `${jogador.nick}`.cyan + `, o que voce fara?`);
+
+	if (respostaUsuario === 0) {
+		vasculharArea();
+		ciclo.passciclo();
+		console.log(`Voce esta no periodo da ${ciclo.periodo}`);
+		console.log(`Voce esta no dia ${ciclo.dia}`);
+
+	}
+	if (respostaUsuario === 1) {
+		pausar();
+	}
+	if (respostaUsuario === 2) {
+		cabanaEsper();
+		escolhaCabana();
+	}
+	if (respostaUsuario === -1) {
+		console.log(`*Coruja:`.yellow.italic + ` Nao da para simplesmente cancelar. Escolha novamente!`.brightRed);
+	}
+}
+
+while (!gameOver) {
+	opcoesJogo();
+	if (jogador.cristalAzul > 5) {
+		console.log(`*Coruja: `.yellow.italic +
+			` Voce tem todos os cristais azul necessarios para... Va matar Aranhas Gigantes para coletar mais cristais Vermelho.`.yellow);
 	}
 
+	if (jogador.cristalVermelho > 2) {
+		console.log(`*Coruja:`.yellow.italic +
+			` Voce tem todos os cristais vermelho necessarios para... Va Matar ou salvar os Capangas do Chefao para mais cristais Vermelho caso ainda nao tenha todos.`.yellow);
+	}
 
-	}while(jogo.controle==0);
-	
-	
+	if (jogador.cristalAzul > 5 && jogador.cristalVermelho > 2) {
+		console.log(
+			`*Coruja:`.yellow.italic + ` Voce tem todos os materiais necessarios para formar a primeira alianca entre tribos anoes!`.yellow);
+			console.log(`VOCE VENCEU!`.brightGreen.bold);
+			console.log(`Voce sobreviveu ${ciclo.dia} dias.`)
+		let escolhaContinua = [`Ir para o ...`, ` Cabana do Esper. Verificar Status e Inventario.`];
+		let perguntaContinua = ask.keyInSelect(escolhaContinua, ` *Coruja:`.yellow.italic + `Para onde voce quer prosseguir?`);
 
-}while(controle2==0);
+		if (perguntaContinua === 0) {
+			lutaChefao();
+		} else if (perguntaContinua === 1) {
+			cabanaEsper();
+			escolhaCabana();
+		} else if (perguntaContinua === 2) {
+			pausar();
+		}
+	}
+
+	if (jogador.saude <= 0) {
+		console.log(`Voce sobreviveu ${ciclo.dia} dias.`)
+		console.log(`VOCE PERDEU!`.brightRed.bold);
+		console.log(`GAME 0VER`.brightWhite.bold);
+		gameOver = true;
+	}
+}
+
+function lutaChefao() {
+	console.log(`*Coruja: `.yellow.italic + `Finalmente, va conseguir essas amostras de cristais!`);
+
+	console.log(`BATALHA A FRENTE!`.brightGreen);
+
+	console.log(
+		`*Chefao: `.brightGreen.italic +
+		`NAO QUERO CONFRONTAR VOCE. ENTREGUE OS CRISTAIS OU SAIA DO MEU CAMINHO...`);
+
+	const choicesChoices = ask.keyInSelect([`Entregar os cristais ao Chefao. `, `Lutar e conseguir mais cristais .`],
+		`*Coruja: `.yellow.italic + `Voce vai dar ouvidos a ele?`, `Abrir o Status e Inventario do(a) ` + `${jogador.nick}`.cyan);
+
+	if (choicesChoices === 2) {
+		pausar();
+	} else if (choicesChoices === 0) {
+		console.log(`*Coruja:`.yellow.italic + ` Vamos acabar com isso!`);
+		console.log(`*Bauer: `.yellow.italic + ` Tirarei estes cristais de voce e criarei a arma da aniquilacao!`);
+		console.log(`VOCE PERDEU!`.brightRed.bold);
+		console.log(`GAME OVER!`.brightRed.bold);
+		gameOver = true;
+	}
+}
+
+
+// Máquina de Vendas (CABANA DO ESPER) -----------------------------------------------------
+
+function checkextrato() {
+	let extratoAtual1 = `${jogador.extrato}`.brightGreen;
+	return extratoAtual1;
+}
+
+function cabanaEsper() {
+	console.log(`
+	-----------------------------JOGO PAUSADO-----------------------------`.brightRed);
+	let vozEsper = `	
+	*Uma vóz profunda, cheia de sabedoria e serenidade* `.yellow + ` 
+	` + `BEM-VINDO A CABANA DO ESPER! 
+	Como poderei ajudá-lo?`.green.underline;
+	let menuDaCabana =
+		`
+	
+	          ` + `BEM-VINDO A CABANA DO ESPER! `.green + `
+	      ====================================== `.green + `              
+	
+	      [1]`+ ` Pocao Inferior `.brightRed + `        2 Ouro`.brightGreen + `
+	      [2]`+ ` Pocao Saude `.brightRed + `           5 Ouro`.brightGreen + `
+	      [3]`+ ` ${fagulhaEsgotado} `.blue + `               10 Ouro`.brightGreen + `                    
+	      [4]`+ ` 10 Fagulha `.blue + ` 		 3 Ouro`.brightGreen + `                                
+	      [5]`+ ` ${esferaEsgotado} `.cyan + `                20 Ouro`.brightGreen + `                           
+	      [6]`+ ` 3 Esfera `.cyan + `   		 4 Ouro`.brightGreen + `                                                       
+	      [7]`+ ` Fermentacao `.brightCyan + `           2 Ouro`.brightGreen + `                                                                                                                              
+	
+	`;
+
+	console.log(vozEsper);
+	console.log(menuDaCabana.magenta);
+}
+
+function checkInv() {
+	let verificarOpcoesInv = [`Retornar a ` + `CABANA DO ESPER`.green, `Sair do Inventario e Reiniciar o jogo`];
+	pausar();
+
+	let verificarEscolhaInv = ask.keyInSelect(verificarOpcoesInv, `Voce esta em seu inventario. O que voce quer fazer?`.brightWhite);
+	if (verificarEscolhaInv === 0) {
+		cabanaEsper();
+		escolhaCabana();
+	} else if (verificarEscolhaInv === 1) {
+		console.log(`-----------------------------JOGO REINICIADO-----------------------------`.brightGreen);
+
+	} else if (verificarEscolhaInv <= -1) {
+		console.log(`ESCOLHA UMA DAS OPCOES ACIMA!`.red.underline);
+	}
+}
+
+function escolhaCabana() {
+	let valoresCabana = [
+		`Pocao Inferior`.brightRed,
+		`Pocao Saude`.brightRed,
+		`${fagulhaEsgotado}`.blue,
+		`10 Fagulha`.blue,
+		`${esferaEsgotado}`.cyan,
+		`3 Esferas`.cyan,
+		`Fermentacao`.brightCyan,
+		`Verificar o inventario`.brightWhite,
+		`Sair e Retornar ao jogo`.brightWhite
+	];
+
+	let opcoesVenda = ask.keyInSelect(valoresCabana, `O que voce quer comprar na ` + `CABANA DO ESPER`.green + `?` +
+		` Voce tem ${checkextrato()} de Ouro.`);
+
+	if (opcoesVenda === 8) {
+		console.log(`-----------------------------JOGO REINICIADO-----------------------------`.brightGreen);
+		opcoesJogo();
+	}
+
+	if (opcoesVenda <= -1) {
+		cabanaEsper();
+		escolhaCabana();
+		console.log(`NAO HA COMO CANCELAR NESTE MOMENTO. ESCOLHA NOVAMENTE!`.brightRed);
+	}
+
+	if ((opcoesVenda === 0 && jogador.extrato >= 2) || (opcoesVenda === 0 && jogador.extrato <= 1)) {
+		if (jogador.extrato <= 1) {
+			cabanaEsper();
+			escolhaCabana();
+			console.log(`*Uma vóz profunda, cheia de sabedoria e serenidade* `.yellow + `VOLTE QUANDO TIVER MAIS OURO.`);
+		}
+		inventario.push(` Pocao Inferior`);
+		jogador.extrato -= 2;
+		console.log(`${valoresCabana[0]} foi adicionado ao inventario.`);
+		algoMais();
+	}
+
+	if ((opcoesVenda === 1 && jogador.extrato >= 5) || (opcoesVenda === 1 && jogador.extrato < 4)) {
+		if (jogador.extrato < 4) {
+			cabanaEsper();
+			escolhaCabana();
+			console.log(`*Uma vóz profunda, cheia de sabedoria e serenidade* `.yellow + `VOLTE QUANDO TIVER MAIS OURO.`);
+		}
+		inventario.push(` Pocao Saude`);
+		jogador.extrato -= 5;
+		console.log(`${valoresCabana[1]} foi adicionado ao inventario.`);
+		algoMais();
+	}
+
+	if ((opcoesVenda === 2 && jogador.extrato >= 10) || (opcoesVenda === 2 && jogador.extrato < 9)) {
+		if (jogador.extrato < 9) {
+			cabanaEsper();
+			escolhaCabana();
+			console.log(`*Uma vóz profunda, cheia de sabedoria e serenidade* `.yellow + `VOLTE QUANDO TIVER MAIS OURO.`.yellow);
+		}
+		fagulhaEsgotado = `Esgotado`;
+
+		if (opcoesVenda === 2 && armas.includes(` Fagulha`.blue)) {
+			console.log(`Este item esta ` + `Esgotado`.brightRed.bold + `.`);
+			algoMais();
+		} else {
+			jogador.extrato -= 10;
+			armas.push(` Fagulha`.blue);
+			console.log(`Compra realizada com sucesso! ${valoresCabana[2]} foi adquirido.`);
+			algoMais();
+		}
+	}
+
+	if ((opcoesVenda === 3 && jogador.extrato >= 3) || (opcoesVenda === 3 && jogador.extrato < 2)) {
+		if (jogador.extrato < 2) {
+			cabanaEsper();
+			escolhaCabana();
+			console.log(`*Uma vóz profunda, cheia de sabedoria e serenidade* `.yellow + `VOLTE QUANDO TIVER MAIS OURO.`.yellow);
+		}
+
+		jogador.fagulhaRodadas += 10;
+		jogador.extrato -= 3;
+		console.log(`${valoresCabana[3]} foi adicionado aos seus poderes.`);
+		algoMais();
+	}
+
+	if ((opcoesVenda === 4 && jogador.extrato >= 20) || (opcoesVenda === 4 && jogador.extrato < 19)) {
+		if (jogador.extrato < 19) {
+			cabanaEsper();
+			escolhaCabana();
+			console.log(`*Uma vóz profunda, cheia de sabedoria e serenidade* `.yellow + `VOLTE QUANDO TIVER MAIS OURO.`.yellow);
+		}
+
+		if (!armas.includes(` Fagulha`.blue) && opcoesVenda === 4) {
+			console.log(`*Uma vóz profunda, cheia de sabedoria e serenidade* `.yellow + `VOCE DEVE ADQUIRIR FAGULHA ANTES DA ESFERA!!!`.brightRed);
+			algoMais();
+		} else if (opcoesVenda === 4 && armas.includes(` Esfera`.red)) {
+			console.log(`Este item esta ` + `Esgotado`.brightRed.underline);
+			algoMais();
+		} else if (opcoesVenda === 4 && !armas.includes(` Esfera`.red) && armas.includes(` Fagulha`.blue)) {
+			armas.push(` Esfera`.red);
+			jogador.extrato -= 20;
+			console.log(`${valoresCabana[4]} foi adquirido.`);
+			esferaEsgotado = `Esgotado`;
+			algoMais();
+		}
+	}
+
+	if ((opcoesVenda === 5 && jogador.extrato >= 4) || (opcoesVenda === 5 && jogador.extrato < 2)) {
+		if (jogador.extrato < 2) {
+			cabanaEsper();
+			escolhaCabana();
+			console.log(`*Uma vóz profunda, cheia de sabedoria e serenidade* `.yellow + `VOLTE QUANDO TIVER MAIS OURO.`.yellow);
+		}
+		jogador.extrato -= 4;
+		jogador.esferaRodadas += 3;
+		console.log(`${valoresCabana[5]} foi acrescentado a seus poderes.`);
+		algoMais();
+	}
+
+	if ((opcoesVenda === 6 && jogador.extrato > 3) || (opcoesVenda === 6 && jogador.extrato < 1)) {
+		if (jogador.extrato < 1) {
+			cabanaEsper();
+			escolhaCabana();
+			console.log(`*Uma voz profunda, cheia de sabedoria e serenidade* `.yellow + `VOLTE QUANDO TIVER MAIS OURO.`.yellow);
+		}
+		inventario.push(` Fermentacao`.yellow.bold);
+		jogador.extrato -= 2;
+		console.log(`${valoresCabana[6]} foi adicionado a seu inventario.`);
+		algoMais();
+	}
+
+	if (opcoesVenda === 7) {
+		checkInv();
+	}
+}
+
+function algoMais() {
+	let queFazer = ask.keyInSelect([`Retornar a ` + `CABANA DO ESPER`.green, `Sair e Reiniciar o jogo`,
+	`Abrir o Status e Inventario do(a) ` + `${jogador.nick}`.cyan], `Quer comprar algo mais?`);
+
+	if (queFazer === 2) {
+		console.log(`-----------------------------JOGO PAUSADO-----------------------------`.brightRed);
+		pausar();
+	}
+
+	if (queFazer <= -1) {
+		console.log(`ERRO. NAO HA COMO CANCELAR NESTE MOMENTO.`.brightRed);
+		algoMais();
+	}
+
+	if (queFazer === 0) {
+		cabanaEsper();
+		escolhaCabana();
+	}
+
+	if (queFazer === 1) {
+		console.log(`-----------------------------JOGO REINICIADO-----------------------------`.brightGreen);
+		opcoesJogo();
+	}
+}
+
+// Fim da máquina de vendas ----------------------------------------------------------------
+
