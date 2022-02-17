@@ -262,6 +262,8 @@ class Map{
 				}				
 
 			}else{
+				ciclo.passTempo();
+				map.pass_local();
 				return ;
 			}
 			if(jogador.saude<=0){
@@ -626,4 +628,3 @@ do{
 	
 
 }while(jogo.controle3==0);
-
