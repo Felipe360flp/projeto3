@@ -2,15 +2,16 @@ var prompt = require('prompt-sync')();
 
 // Variáveis de funcionamento geral do jogo
 
-do{ // Responsável pelo loop geral do jogo
+ // Responsável pelo loop geral do jogo
 
 class Jogo{
-	constructor(controle,controle2,controle3,leitor,leitor2,){
+	constructor(controle,controle2,controle3,leitor,leitor2,condicao){
 		this.controle=controle;
 		this.controle2=controle2;
 		this.controle3=controle3;
 		this.leitor=leitor;
 		this.leitor2=leitor2;
+		this.condicao=condicao;
 }
 
 criar_personagem(){
@@ -154,6 +155,8 @@ narrativa_final(){
 
 }
 
+
+
 // Passando referências para cada variável da classe Jogo
 const jogo = new Jogo(0,0,0,0,"");
 
@@ -205,7 +208,8 @@ class Map{
     }
 	// Função de batalha
 	batalha(inimigo){
-		console.log("Um inimigo se aproxima!");
+
+		console.log("Uma ameaça se aproxima!");
 		prompt("Tecle ENTER para continuar!")
 		console.clear();
 		do{
@@ -252,35 +256,39 @@ class Map{
 					        console.clear();									
 						}else{
 							if(jogador.ataque[x]=="vazio"){
-								console.log("você não tem mais esse ataque!");
+								console.log("Você não tem mais esse ataque!");
 							}						
 						}						
 					}					
-					
 				}else{
 					console.log("Dígito inválido!");
 				}				
 
+			}else if(resposta_jogador==2){
+				inimigo.saude=0;
+				jogo.condicao++;
 			}else{
-				ciclo.passTempo();
-				map.pass_local();
-				return ;
+				console.log("Digito inválido! Digite oque deseja fazer novamente:\n");
 			}
-			if(jogador.saude<=0){
-				console.log(`Você sobreviveu por ${ciclo.dia} dias.`);	
-				console.log("Você foi morto em combate!");
-				console.log("GAME OVER!!!");
-				jogo.controle++;
-			}
-			
-			if(inimigo.saude<=0){
-				console.log("Você venceu!!!");
-				jogo.controle++;
-			}
-			prompt("Tecle ENTER para continuar:");// alterado hoje
-	        console.clear();
 
-		}while(inimigo.saude>0 && jogador.saude>0);
+		}while(inimigo.saude>0);//alterado 18:36 - 17/02/2022
+
+		if(jogador.saude<=0){
+			console.log(`Você sobreviveu por ${ciclo.dia} dias.`);	
+			console.log("Você foi morto em combate!");
+			console.log("GAME OVER!!!");
+			jogo.controle2++;			
+		}
+		
+		if(inimigo.saude<=0 && jogo.condicao==0){
+			console.log("Você venceu!!!");
+			jogador.menu_acoes();
+		}
+
+		if(jogo.condicao==1){
+			jogador.menu_acoes();
+		}
+
 	}
 
 }
@@ -303,36 +311,38 @@ class Jogador {
 
 	// Função que imprime o inventário geral do jogador
 
-	status_geral(){
-		do{
-		console.log("--------------------Inventário---------------")
-		console.log(` Nome: ${jogador.nick} - Saúde: ${jogador.saude}`)
-		console.log("                                             ")
-		console.log(` Ataques:                                    `)
-		console.log(`[${jogador.ataque[0]}]-[${jogador.ataque[1]}]-[${jogador.ataque[2]}]`)
-		console.log("                                             ")
-		console.log(" itens:                                      ")
-		console.log(`{${jogador.iten[0]}] - [${jogador.iten[1]}] - [${jogador.iten[2]}]`)
-		console.log(`{${jogador.iten[3]}] - [${jogador.iten[4]}] - [${jogador.iten[5]}]`)
-		console.log(`                                   Ouro:[${jogador.ouro}]`)
-		console.log("_____________________________________________")
-		console.log("Para sair digite [1]");
-		jogo.leitor=prompt();
+	status_geral(){		
+			console.clear();
+			console.log("--------------------Inventário---------------")
+			console.log(` Nome: ${jogador.nick} - Saúde: ${jogador.saude}`)
+			console.log("                                             ")
+			console.log(` Ataques:                                    `)
+			console.log(`[${jogador.ataque[0]}]-[${jogador.ataque[1]}]-[${jogador.ataque[2]}]`)
+			console.log("                                             ")
+			console.log(" itens:                                      ")
+			console.log(`[${jogador.iten[0]}] - [${jogador.iten[1]}] - [${jogador.iten[2]}]`)
+			console.log(`[${jogador.iten[3]}] - [${jogador.iten[4]}] - [${jogador.iten[5]}]`)
+			console.log(`                                   Ouro:[${jogador.ouro}]`)
+			console.log("_____________________________________________")
+			console.log("Para sair digite [1]");
+			jogo.leitor=prompt();
 		
-		if(jogo.leitor>=1){
-			jogo.controle++;
+			if(jogo.leitor>=1){
+				console.clear();
+				jogo.menu_acoes()
+		}else{
+			console.log("Digite [1] para sair!");
+			prompt("TECLE ENTER:");
+			console.clear;
 		}
-		prompt("Tecle ENTER para continuar:");// alterado hoje
-	    console.clear();	
-	
-		}while(jogo.controle==0)
-		jogo.controle=0;	
 	}
 
 	// Função para utilizar, adicionar e excluir itens
 
-	bolsa(){ 
+	bolsa(){ 	
+		jogo.controle=0;	
 		do{
+			console.clear();
 			console.log("--------------------Bolsa------------------");			
 			console.log("itens:                                  ");			
 			console.log(`[0]${jogador.iten[0]} - [1]${jogador.iten[1]} - [2]${jogador.iten[2]}`);
@@ -351,31 +361,26 @@ class Jogador {
 				if(jogador.iten[jogo.leitor]=="poção_cura"){
 					jogador.saude=120;
 					jogador.iten[jogo.leitor]="vazio"; 
-
+					jogador.menu_acoes();
 				}else{
 					console.log("Local vazio, escolha outra opção!")
-					jogo.leitor=0;
 				}
-					
-			
+			}else if(jogo.leitor==2){
+				console.log("Digite o número do iten que deseja excluir:");
+				jogo.leitor=0;
+				jogo.leitor=+prompt();
 
-				}else if(jogo.leitor==2){
-					console.log("Digite o número do iten que deseja excluir:");
-					jogo.leitor=0;
-				    jogo.leitor=+prompt();
-
-					if(jogador.iten[jogo.leitor]=="vazio"){
-						console.log("Não existe iten no local!");
+				if(jogador.iten[jogo.leitor]=="vazio"){
+					console.log("Não existe iten no local!");
 	
-					}else{
-						jogador.iten[jogo.leitor]="vazio";
-						jogo.leito=0;		
-					}
 				}else{
-					jogo.controle++;
-				}				
-			}while(jogo.controle==0)
-
+					jogador.iten[jogo.leitor]="vazio";	
+					jogador.menu_acoes()
+				}
+			}else{
+				jogador.menu_acoes();
+			}
+		}while(jogo.controle==0);	
 	}
 
 	// Função responsável pela compra de itens. Poderá ser acessada a qualquer momento.
@@ -384,6 +389,7 @@ class Jogador {
 		jogo.leitor=0;
 		jogo.controle=0;
 		do{
+			console.clear();
 			console.log("---------------loja de bolso-----------");			
 			console.log("itens:                                  ");			
 			console.log(`[0]${iten.nome[0]} - ouro:${iten.valor[0]} `);
@@ -441,13 +447,12 @@ class Jogador {
 					}
 
 				}else{
-					console(`Erro: ${jogo.leitor}`)		
-					jogo.controle++;
+					console(`Erro: ${jogo.leitor}`);
 				}		
 			
 
 			}else{
-				jogo.controle++;
+				jogador.menu_acoes();
 			}
 			prompt("Tecle ENTER para continuar:");
 	        console.clear();	
@@ -457,64 +462,57 @@ class Jogador {
 	}
 	// Função responsável pela locomoção do personagem
 	avancar(){ // 
+		jogo.condicao=0;
 	
 		if(ciclo.periodo==="Manhã" && map.armazena_local==="Trilha dos Centauros"){
 			console.clear();
 			jogo.narrativa1();
 			map.pass_local();
-			ciclo.passTempo();		
+			ciclo.passTempo();	
+			jogador.menu_acoes();	
 		}else if(ciclo.periodo==="Noite" && map.armazena_local==="Trilha dos Centauros"){
 			console.clear();
-			console.log("Um inimigo se aproxima!");
-			console.clear();
-			prompt("press ENTER!")
 			jogador.status()
 			map.pass_local();
 			ciclo.passTempo();	
 			map.batalha(cobra_gigante);						
 		}else if(ciclo.periodo==="Tarde" && map.armazena_local==="Gruta da pedra cortante"){
 			console.clear();
-			console.log("Um inimigo se aproxima!");
-			console.clear();
-			prompt("press ENTER!")
 			jogador.status()
 			map.pass_local();
 			ciclo.passTempo();	
-			console.log("Um inimigo se aproxima!");
 			map.batalha(lagarto_humanoide);
 		}else if(ciclo.periodo==="Tarde" && map.armazena_local==="Colina dos Carneiros"){
 			console.clear();
-			console.log("Um inimigo se aproxima!");
-			console.clear();
-			prompt("press ENTER!")
 			jogador.status()
 			map.pass_local();
 			ciclo.passTempo();	
 			map.batalha(grupo_de_ladrões);
-		}else if(map.armazena_regiao==="Vale do Esquecimento"){
-			console.clear();
-			console.log("Um inimigo se aproxima!");
+		}else if(map.armazena_regiao==="Vale do Esquecimento"){			
 			console.clear();
 			prompt("press ENTER!");
 			jogador.status()
 			map.pass_local();
 			ciclo.passTempo();	
-			jogo.narrativa2
+			jogo.narrativa2();
 			map.batalha(troll_da_floresta);
-			jogo.controle2++;
 		}else{
 			console.clear();
-			console.log("Nenhum perigo por enquanto.Você avança!")
 			map.pass_local();
-			ciclo.passTempo();	
-			console.log("\n");
+			ciclo.passTempo();
+			console.clear();	
+			console.log("Nenhum perigo por enquanto.Você avança!")
+			jogador.menu_acoes();	
 		}
 	}		
 	
 	// Função que apresenta um menu de opções sobre as ações do jogador
 	menu_acoes(){		
-		jogo.controle=0;
+		
 	do{	
+		if(map.armazena_regiao==map.regiao[1]){
+			jogo.controle++;
+		};
 		jogador.status();
 		console.log("-----------------------------------");
 		console.log("Você gostaria de tomar que atitude?");
@@ -538,7 +536,7 @@ class Jogador {
 			jogo.controle++;
 		}
 
-	}while(jogo.controle==0)	 // alterado hoje
+	}while(jogo.controle==0)
 	
 } 
 
@@ -590,20 +588,24 @@ const troll_da_floresta = new Inimigo("troll_da_floresta",100,22,5);
 
 
 //***************************** Início do jogo******************************
-jogo.controle2=0;
-jogo.controle3=0;
-
 do{
+	 // Reinicializando variáveis globais
+ 	const jogo = new Jogo(0,0,0,0,"",0);
+ 	const ciclo  = new Ciclo(1,"Manhã");
+ 	const map  = new Map(["Trilha dos Centauros","Gruta da pedra cortante","Colina dos Carneiros"],["Floresta de Aldruin","Vale do Esquecimento"],"Trilha dos Centauros","Floresta de Aldruin");
+ 	const jogador = new Jogador("",80,60,["pericia_cajado","fagulha","esfera_explosiva"],[15,40,70],["poção_cura","vazio","vazio","vazio","vazio","vazio"]);
+ 	const iten = new Iten(["poção_cura","esfera_explosiva","fagulha"],[50,20,15]);
+ 	const cobra_gigante = new Inimigo("cobra_gigante",20,5,0);
+	const lagarto_humanoide = new Inimigo("Lagarto_humanoide",30,15,10);
+	const grupo_de_ladrões = new Inimigo("grupo_de_ladrões",45,20,40);
+	const troll_da_floresta = new Inimigo("troll_da_floresta",100,22,5);
+
+
 	jogo.criar_personagem();
-	jogo.controle++;
-}while(jogo.controle==0)
-jogo.controle=0;
-jogo.controle2=0;
 
-do{
+	jogo.historia();
+
 	jogador.menu_acoes();
-
-}while(jogo.controle2==0);
 
 	if(jogador.saude>0){
 		console.log("\n")
@@ -612,19 +614,20 @@ do{
 	jogo.leitor=0;
 	jogo.controle=0;
 	
-do{
-	console.log("Você deseja jogar novamente?");
-	jogo.leitor=+prompt("Digite [1] SIM ou [2] NÃO :");
+	do{
+		console.log("Você deseja jogar novamente?");
+		jogo.leitor=+prompt("Digite [1] SIM ou [2] NÃO :");
 
-	if(jogo.leitor>1){
-		jogo.controle++;
-		jogo.controle3++;
-	}else{
-		jogo.controle++;
-	}
-
-
+		if(jogo.leitor>1){
+			return jogo.controle3++;
+			jogo.controle++;
+		}else{
+			jogo.controle++;
+		}
 	}while(jogo.controle==0);	
 	
 
 }while(jogo.controle3==0);
+
+
+
