@@ -229,8 +229,8 @@ class Map{
 					console.clear();				
 				}else if(resposta_jogador==2){// Ataque Fagulha
 					for(let x=0;x<3;x++){
-						if(jogador.ataque[x]=="fagulha"){							
-							jogador.ataque[x]="vazio";							
+						if(jogador.iten[x]=="fagulha"){							
+							jogador.iten[x]="vazio";							
 							inimigo.saude-=jogador.dano_ataque[1];
 					        jogador.saude-=inimigo.ataque;	
 					        console.log(`Saúde ${jogador.nick}:${jogador.saude}`);
@@ -246,8 +246,8 @@ class Map{
 					
 				}else if(resposta_jogador==3){
 					for(let x=0;x<3;x++){
-						if(jogador.ataque[x]=="esfera_explosiva"){
-							jogador.ataque[x]="vazio";
+						if(jogador.iten[x]=="esfera_explosiva"){
+							jogador.iten[x]="vazio";
 							inimigo.saude-=jogador.dano_ataque[2];
 					        jogador.saude-=inimigo.ataque;
 					        console.log(`Saúde ${jogador.nick}:${jogador.saude}`);
@@ -329,7 +329,7 @@ class Jogador {
 		
 			if(jogo.leitor>=1){
 				console.clear();
-				jogo.menu_acoes()
+				jogador.menu_acoes();
 		}else{
 			console.log("Digite [1] para sair!");
 			prompt("TECLE ENTER:");
@@ -349,8 +349,8 @@ class Jogador {
 		    console.log(`[3]${jogador.iten[3]} - [4]${jogador.iten[4]} - [5]${jogador.iten[5]}`);
 		    console.log("___________________________________________");			
 			console.log("[1] para utilizar algum iten:");
-			console.log("[2] para excluir algum iten]");
-			console.log("[3] para fechar a bolsa]");
+			console.log("[2] para excluir algum iten");
+			console.log("[3] para fechar a bolsa");
 			console.log("___________________________________________");	
 			jogo.leitor=+prompt();
 
@@ -378,6 +378,7 @@ class Jogador {
 					jogador.menu_acoes()
 				}
 			}else{
+				console.clear();
 				jogador.menu_acoes();
 			}
 		}while(jogo.controle==0);	
@@ -388,6 +389,8 @@ class Jogador {
 	loja_bolso(){
 		jogo.leitor=0;
 		jogo.controle=0;
+		jogo.controle2=0;
+		jogo.controle3=0;
 		do{
 			console.clear();
 			console.log("---------------loja de bolso-----------");			
@@ -408,39 +411,40 @@ class Jogador {
 				jogo.leitor=+prompt();
 				if(jogo.leitor>=0 || jogo.leitor<=2){
 					if(jogador.ouro>=iten.valor[jogo.leitor]){
-						for(let x=0;x<6;x++){
-							if(jogador.iten[x]==="vazio"){
-								console.log(`Ouro: ${jogador.ouro}`);
-								jogador.iten[x]=iten.nome[jogo.leitor];
-								jogador.ouro-=iten.valor[jogo.leitor];
-								break;						
-						
-							}else{
-								do{
+						do{
+							for(let x=0;x<6;x++){ 
+								if(jogador.iten[x]==="vazio"){
+									jogador.iten[x]=iten.nome[jogo.leitor];
+									jogador.ouro-=iten.valor[jogo.leitor];
+									console.log(`Ouro: ${jogador.ouro}`);
+									jogo.controle++;
+									jogo.controle2++;
+									break;
+								}
+							}															
+								while(jogo.controle2==0){
 									jogo.leitor=0;
 									console.log("Bolsa cheia! Deseja excluir algum iten?\n");						
 									
-										console.log("--------------------bolsa------------------");			
-			                            console.log("itens:                                  ");			
-			                            console.log(`[0]${jogador.iten[0]} - [1]${jogador.iten[1]} - [2]${jogador.iten[2]}`);
-		                                console.log(`[3]${jogador.iten[3]} - [4]${jogador.iten[4]} - [5]${jogador.iten[5]}`);
-		                                console.log("___________________________________________");													
-										console.log("Digite o número correspondente ao iten[?]:");
-										console.log("Digite [7] para sair:");
-									    jogo.leitor=prompt();
+									console.log("--------------------bolsa------------------");			
+			                        console.log("itens:                                  ");			
+			                        console.log(`[0]${jogador.iten[0]} - [1]${jogador.iten[1]} - [2]${jogador.iten[2]}`);
+		                            console.log(`[3]${jogador.iten[3]} - [4]${jogador.iten[4]} - [5]${jogador.iten[5]}`);
+		                            console.log("___________________________________________");													
+									console.log("Digite o número correspondente ao iten[?]:");
+									console.log("Digite [7] para sair:");
+									jogo.leitor=prompt();
 
-										if(jogo.leitor==0 || jogo.leitor<=5){	
-											jogador.iten[jogo.leitor]="vazio";
-											console.log(`${jogador.iten[jogo.leitor]} foi removido da bolsa!`)
-										}else{
-											jogo.controle++;
-										}
+									if(jogo.leitor==0 || jogo.leitor<=5){	
+										jogador.iten[jogo.leitor]="vazio";
+										console.log(`${jogador.iten[jogo.leitor]} foi removido da bolsa!`)
+									}else{
+										jogo.controle++;
+									}
+								}							
 										
-									}while(jogo.controle==0);
-																			
-							}
-						}
-					
+						}while(jogo.controle==0);
+
 						
 					}else{
 						console.log("Ouro insuficiênte!");
@@ -452,12 +456,13 @@ class Jogador {
 			
 
 			}else{
+				console.clear();
 				jogador.menu_acoes();
 			}
 			prompt("Tecle ENTER para continuar:");
 	        console.clear();	
 		
-		}while(jogo.controle==0);
+		}while(jogo.controle3==0);
 		
 	}
 	// Função responsável pela locomoção do personagem
@@ -628,6 +633,10 @@ do{
 	
 
 }while(jogo.controle3==0);
+
+
+
+
 
 
 
