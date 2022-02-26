@@ -255,7 +255,7 @@ class Map{
 					        prompt("Digite ENTER para continuar:");
 					        console.clear();									
 						}else{
-							if(jogador.ataque[x]=="vazio"){
+							if(jogador.iten[x]=="vazio"){
 								console.log("Você não tem mais esse ataque!");
 							}						
 						}						
@@ -361,6 +361,7 @@ class Jogador {
 				if(jogador.iten[jogo.leitor]=="poção_cura"){
 					jogador.saude=120;
 					jogador.iten[jogo.leitor]="vazio"; 
+					console.clear();
 					jogador.menu_acoes();
 				}else{
 					console.log("Local vazio, escolha outra opção!")
@@ -375,6 +376,7 @@ class Jogador {
 	
 				}else{
 					jogador.iten[jogo.leitor]="vazio";	
+					console.clear();
 					jogador.menu_acoes()
 				}
 			}else{
@@ -633,10 +635,6 @@ do{
 	
 
 }while(jogo.controle3==0);
-
-
-
-
 
 
 
